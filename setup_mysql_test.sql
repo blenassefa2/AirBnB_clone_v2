@@ -14,6 +14,3 @@ GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
 
 -- let the user see the perfomance data
 GRANT SELECT ON performance_schema.* TO 'hbnb_test'@'localhost';
-
--- avoid any errors by other user privileges
--- FLUSH PRIVILEGES;
