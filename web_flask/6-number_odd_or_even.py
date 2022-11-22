@@ -1,56 +1,57 @@
 #!/usr/bin/python3
-"""A module to start a simple flask server"""
-from flask import Flask, render_template
+"""
+Function that starts a Flask web application
+"""
+
+from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 
-@app.route('/', strict_slashes=False)
-def hello():
-    """A controller to handle '/' route """
-    return "Hello HBNB!"
+@app.route('/')
+def sayHello():
+    """Function to say hello"""
+    return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """A controller to handle '/hbnb' route"""
-    return "HBNB"
+@app.route('/hbnb')
+def sayHello2():
+    """Function to say hello"""
+    return 'HBNB'
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def c_is_fun(text):
-    """A controller to handle route '/c/<text>'"""
-    return 'C ' + text.replace('_', ' ')
+@app.route('/c/<var>')
+def anotherRoute(var):
+    """C is magic"""
+    return 'C {}'.format(var.replace('_', ' '))
 
 
-@app.route('/python', strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(text='is cool'):
-    """A controller to handle route '/python/<text>'"""
-    return 'Python ' + text.replace('_', ' ')
+@app.route('/python')
+@app.route('/python/<text>')
+def python(text='is cool'):
+    """Python is cool"""
+    return 'Python {}'.format(text.replace('_', ' '))
 
 
-@app.route('/number/<int:n>', strict_slashes=False)
-def is_it_a_number(n):
-    """A controller to handle '/number/<n> route'"""
-    return str(n) + ' is a number'
+@app.route('/number/<int:n>')
+def isInt(n):
+    """return int if n is a number , casted with int"""
+    return "{} is anumber".format(n)
 
 
-@app.route('/number_template/<int:n>', strict_slashes=False)
+@app.route('/number_template/<int:n>')
 def number_template(n):
-    """A controller to handle '/numbe_template/<n> route'"""
-    return render_template('5-number.html', n=n)
+    """retrurn if it is an int"""
+    return render_template('5-number.html', number=n)
 
 
-@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def odd_or_even(n):
-    """A controller to handle '/number_odd_even/<n> route'"""
-    odd_or_even = 'even'
-    if n % 2:
-        odd_or_even = 'odd'
-    return render_template('6-number_odd_or_even.html',
-                           n=n, odd_or_even=odd_or_even)
+@app.route('/number_odd_or_even/<int:n>')
+def render_template2(n):
+    """Return if number is odd or even"""
+    return render_template('6-number_odd_or_even.html', number=n)
 
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+if __name__ == "__main__":
+    app.run(port=5000, host='0.0.0.0', debug=True)
