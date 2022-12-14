@@ -1,34 +1,49 @@
 #!/usr/bin/python3
-"""A module to start a simple flask server"""
+"""
+Write a script that starts a Flask web application:
+Your web application must be listening on 0.0.0.0, port 5000
+Routes:
+/: display “Hello HBNB!”
+/hbnb: display “HBNB”
+/c/<text>: display “C ”, followed by the value of the text variable
+(replace underscore _ symbols with a space)
+/python/(<text>): display “Python ”, followed by the value of the text variable
+(replace underscore _ symbols with a space)
+"""
 from flask import Flask
+
 
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello():
-    """A controller to handle '/' route """
+def index():
+    """ Display the site index
+    """
     return "Hello HBNB!"
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
-    """A controller to handle '/hbnb' route"""
+    """ Display the site hbnb
+    """
     return "HBNB"
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_is_fun(text):
-    """A controller to handle route '/c/<text>'"""
-    return 'C ' + text.replace('_', ' ')
+def c(text):
+    """ Display the site with input value of variable
+    """
+    return "C " + text.replace("_", " ")
 
 
-@app.route('/python', strict_slashes=False)
+@app.route('/python/')
 @app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(text='is cool'):
-    """A controller to handle route '/python/<text>'"""
-    return 'Python ' + text.replace('_', ' ')
+def python(text='is cool'):
+    """ Display the site index
+    """
+    return "Python " + text.replace("_", " ")
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(debug=True, host='0.0.0.0', port=5000)

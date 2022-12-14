@@ -1,27 +1,39 @@
 #!/usr/bin/python3
-"""A module to start a simple flask server"""
+"""
+Write a script that starts a Flask web application:
+Your web application must be listening on 0.0.0.0, port 5000
+Routes:
+/: display “Hello HBNB!”
+/hbnb: display “HBNB”
+/c/<text>: display “C ” followed by the value of the text
+variable (replace underscore _ symbols with a space )
+"""
 from flask import Flask
+
 
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello():
-    """A controller to handle '/' route """
+def index():
+    """ Display the site index
+    """
     return "Hello HBNB!"
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
-    """A controller to handle '/hbnb' route"""
+    """ Display the site index
+    """
     return "HBNB"
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_is_fun(text):
-    """A controller to handle route '/c/<text>'"""
-    return 'C ' + text.replace('_', ' ')
+def c(text):
+    """ Display the site index
+    """
+    return "C " + text.replace("_", " ")
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(debug=True, host='0.0.0.0', port=5000)
