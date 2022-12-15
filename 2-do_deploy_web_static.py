@@ -4,7 +4,7 @@ Fabric script that distributes an archive to web servers
 """
 from fabric.operations import put, run, sudo
 import os
-from fabric.api import run, local, sudo, env
+from fabric.api import run, local, sudo, env, task
 from datetime import datetime
 
 
@@ -25,9 +25,13 @@ def do_pack():
     return None
 
 
-def do_deploy(archive_path):
+@task(alias='deploy')
+def do_deploy():
     """ deploy an archive from the archive_path
     """
+    archive_path = do_pack()
+    if not archive_path:
+        archive_path = ""
     if os.path.exists(archive_path) is False:
         return False
     file_name = os.path.splitext(os.path.split(archive_path)[1])[0]
